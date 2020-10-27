@@ -4,4 +4,4 @@ npm-debug.log*
 # Dependency directories
 **/node_modules/
 
-bakcend/.env
+backend/.env
