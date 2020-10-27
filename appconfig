@@ -1,0 +1,6 @@
+application_name=sapssosample
+application_version=0.0.1
+application_description=\"Sap sso sample\"
+application_icon=
+helm_chart_version=1.0.0
+docker_registry=docker.io/sebastienbarbier

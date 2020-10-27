@@ -1,0 +1,12 @@
+<script>
+  var token = window.location.search.split('=')[1];
+  if (sessionStorage.getItem('isRunningWithinShell')) {
+    sessionStorage.setItem('token', token);
+    window.location.href = '/';
+  } else {
+    window.parent.postMessage({
+      type: 'REFRESH',
+      token: token
+    }, '*');
+  }
+</script>   
