@@ -20,7 +20,7 @@ IDP_URL_CALLBACK=https://xyz.ngrok.io/auth/provider/callback
 SESSION_SECRET=...
 ```
 
-Current dev process works well with ngrok.com to access local instal from public domain.
+Current dev process works well with [ngrok.com](https://ngrok.com/) to access local instal from public domain.
 
 ## Run locally
 
