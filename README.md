@@ -1,6 +1,6 @@
 # SSO Sample code
 
-This repository shows a working code sample to fetch a user email on SAP IdP using passportjs.
+This repository shows a working code sample to fetch a user email on SAP IdP using [passportjs](http://www.passportjs.org/docs/oauth/).
 It is still work in progress and currently subject to refactoring and code simplification
 
 ## Installation process
