@@ -1,6 +1,6 @@
 # SSO Sample code
 
-This repository shows a working code sample to fetch a user email on SAP IdP using passportjs.
+This repository shows a working code sample to fetch a user email on SAP IdP using [passportjs](http://www.passportjs.org/docs/oauth/).
 It is still work in progress and currently subject to refactoring and code simplification
 
 ## Installation process
@@ -20,7 +20,7 @@ IDP_URL_CALLBACK=https://xyz.ngrok.io/auth/provider/callback
 SESSION_SECRET=...
 ```
 
-Current dev process works well with ngrok.com to access local instal from public domain.
+Current dev process works well with [ngrok.com](https://ngrok.com/) to access local instal from public domain.
 
 ## Run locally
 
