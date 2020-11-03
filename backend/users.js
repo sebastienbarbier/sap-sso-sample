@@ -13,28 +13,35 @@ function uuidv4() {
   });
 }
 
-function findOrCreate(user, callback) {
-  const token = uuidv4();
-  if (!users[user.uid]) {
-    users[user.uid] = {
-      id: user.uid,
-      last_name: user.last_name,
-      first_name: user.first_name,
-      mail: user.mail
-    };
+function findOrCreate(_user, callback) {
+  const { cluster_url, account, id } = _user;
+
+  let user = Object.values(users).find(storedUser => {
+    return storedUser.cluster_url == cluster_url &&
+           storedUser.account == account &&
+           storedUser.id == id;
+  });
+
+  if (!user) {
+    const uuid = uuidv4();
+    users[uuid] = Object.assign({}, _user, { uuid });
+    user = users[uuid];
   }
-  
-  tokens[token] = user.uid;
-  callback(null, users[user.uid], token);
+
+  const token =  uuidv4();
+  tokens[token] = user.uuid;
+
+  callback(null, user, token);
 }
 
-function findById(id, callback) {
-  callback(null, users[id]);
+function findById(uuid, callback) {
+  callback(null, users[uuid]);
 }
 
 function findByToken(token, callback) {
-  if (tokens[token]) {
-    callback(null, users[tokens[token]]);
+  const uuid = tokens[token];
+  if (uuid && users[uuid]) {
+    callback(null, users[uuid]);
   } else {
     callback('unknown token', false);
   }

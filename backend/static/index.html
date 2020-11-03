@@ -30,7 +30,6 @@
         clientIdentifier: 'example-plugin',
       });
       shellSdk.on(SHELL_EVENTS.Version1.REQUIRE_CONTEXT, (event) => {
-        console.log(event);
         receivedAnswerFromShell = true;
         sessionStorage.setItem('isRunningWithinShell', true);
       });
@@ -55,13 +54,21 @@
         url: "/api/me",
         dataType: 'json',
         headers: {
-          "Authorization": "Bearer " + token
+          "Authorization": "Bearer " + token,
+          "cloudHost": "et.dev.coresuite.com",
+          "account": 'sap-i533248',
+          "userId": "1344070"
         },
         success: function (data){
-          $('#logout p').html('Hello ' + data.first_name + ' ' + data.last_name);
+          $('#logout p').html('Hello ' + data.firstName + ' ' + data.lastName);
           $('#logout').css('display', 'block');
         },
-        error: function () {
+        error: function (xhr, status, error) {
+          if (xhr.responseJSON && xhr.responseJSON.message) {
+            alert(xhr.responseJSON.message);
+          } else {
+            alert('An unknown error occured');
+          }
           logout();
         }
       });
