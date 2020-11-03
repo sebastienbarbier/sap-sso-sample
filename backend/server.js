@@ -20,7 +20,7 @@ var express = require('express')
   // For demo purpose, provide a mocked db to handle user
   , User = require('./users')
   , cloud = require('./cloud')
-  , middlewares = require('./middlewares';
+  , middlewares = require('./middlewares');
 
 // Demo is based on express node server
 const app = express();
@@ -29,7 +29,8 @@ const app = express();
 // STEP 1. provide passport urls to interface with openid connect
 //
 
-// API to handle OAuth2 indentification flow and identify user
+// Configure passportjs with oauth2 configuration values 
+// and a return function how to handle the jwt token
 passport.use('provider', new OAuth2Strategy({
     clientID: IDP_CLIENT_ID,
     clientSecret: IDP_CLIENT_SECRET,
@@ -41,17 +42,19 @@ passport.use('provider', new OAuth2Strategy({
     }
   },
   function(jwtToken, refreshToken, profile, done) {
-    // jwtToken is retuned by the IDP with the user email.
+    // jwtToken is retuned by the IDP with the user mail, as configured within the openid profile
     done(null, jwtToken ? jwt.decode(jwtToken).mail : false);
   }
 ));
 
-// Will redirect the user to the IDP login.
+// oauth2 api : /auth/provider redirect to the idp login page, 
+// then back to IDP_URL_CALLBACK with authorization code value  
 app.get('/auth/provider',
   passport.authenticate('provider', { scope: 'openid' })
 );
 
-// REST API to get the authn bearer Token from the extension API
+// oauth2 api : /auth/provider/callback receive the authorization code with context header.
+
 app.get('/auth/provider/callback', function(req, res, next) {
   passport.authenticate('provider', async function(err, mail, info) {
     if (err) { return next(err); }
