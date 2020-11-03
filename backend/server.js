@@ -28,7 +28,7 @@ const cloud = require('./cloud');
 const middlewares = require('./middlewares');
 
 //
-// STEP 1. provide passport urls to fetch user data
+// STEP 1. provide passport urls to interface with openid connect
 //
 
 // API to handle OAuth2 indentification flow and identify user
@@ -57,7 +57,7 @@ app.get('/auth/provider',
 app.get('/auth/provider/callback', function(req, res, next) {
   passport.authenticate('provider', async function(err, mail, info) {
     if (err) { return next(err); }
-    if (!mail) { return res.status(401); }
+    if (!mail) { return res.status(401).send({ message: 'Login failed on IDP' }); }
 
     // Verify if IDP account has same email as FSM user. 
     const userObject = await cloud.queryUserObject(req.headers['cloudhost'], req.headers['account'], req.headers['userid']);
