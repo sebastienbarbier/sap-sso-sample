@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 const {
   IDP_CLIENT_ID, 
   IDP_CLIENT_SECRET, 
@@ -8,7 +8,6 @@ const {
   SESSION_SECRET
 } = process.env;
 const PORT = process.env.PORT || 80;
-
 var express = require('express')
   , fetch = require('node-fetch')
   , path = require('path')
@@ -17,15 +16,14 @@ var express = require('express')
   , jwt = require('jsonwebtoken')
   , BearerStrategy = require('passport-http-bearer').Strategy
   , session = require("express-session")
-  , bodyParser = require("body-parser");
+  , bodyParser = require("body-parser")
+  // For demo purpose, provide a mocked db to handle user
+  , User = require('./users')
+  , cloud = require('./cloud')
+  , middlewares = require('./middlewares';
 
-// Initialise express web server
+// Demo is based on express node server
 const app = express();
-
-// For demo purpose, provide a mocked db to handle user
-const User = require('./users');
-const cloud = require('./cloud');
-const middlewares = require('./middlewares');
 
 //
 // STEP 1. provide passport urls to interface with openid connect
